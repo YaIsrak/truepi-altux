@@ -1,6 +1,7 @@
 import ProductCard from '@/components/ProductCard';
 import { featuresList } from '@/lib/constant';
 import { Star } from 'lucide-react';
+// *[_type == "product"] | order(_createdAt asc)
 
 export default function Home() {
 	return (
