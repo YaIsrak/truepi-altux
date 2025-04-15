@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 
-const getPrimaryFont = Inter({
-	variable: '--font-primary',
-	subsets: ['latin'],
+const poppins = Poppins({
+	weight: ['400', '500', '600', '700'],
 });
 
-// const neueHaas = localFont({
 // 	variable: '--font-neue-haas',
 // 	src: [
 // 		{
@@ -34,12 +32,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html
-			lang='en'
-			suppressHydrationWarning>
-			<body className={`${getPrimaryFont.variable} dark antialiased`}>
-				{children}
-			</body>
+		<html lang='en'>
+			<body className={`${poppins.className}`}>{children}</body>
 		</html>
 	);
 }

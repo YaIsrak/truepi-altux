@@ -43,10 +43,6 @@
 	--radius-xl: calc(var(--radius) + 4px);
 }
 
-@theme {
-	--font-secondary: var(--font-secondary);
-}
-
 :root {
 	--radius: 0.625rem;
 	--background: #e8e8e8;
