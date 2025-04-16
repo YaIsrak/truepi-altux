@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function HeroSection() {
@@ -10,8 +11,26 @@ export default function HeroSection() {
 			<div className='container mx-auto px-2'>
 				<div className='flex items-center justify-center flex-col text-center space-y-6'>
 					<h1 className='max-w-xl text-5xl font-extrabold'>
-						Take The First Big Step to Change The Course of your Life
-						Forever
+						Take The First{' '}
+						<span className='relative'>
+							<Image
+								alt=''
+								src='/underline.png'
+								className='absolute w-full h-full translate-y-1/2 left-0 -z-10 '
+								fill
+							/>
+							Big Step
+						</span>{' '}
+						to Change The Course of your Life
+						<span className='relative text-white'>
+							<Image
+								alt=''
+								src='/brush_stroke.png'
+								className='absolute w-full h-full top-0 left-0 -z-10 scale-x-125'
+								fill
+							/>
+							Forever
+						</span>
 					</h1>
 
 					<p>Created with care. Backed by research. Built for results.</p>
@@ -26,9 +45,13 @@ export default function HeroSection() {
 						))}
 					</div>
 
-					<div>
-						{/* todo:  */}
-						<h1>Image hobe</h1>
+					<div className='relative w-full h-[350px]'>
+						<Image
+							src={'/showcase.png'}
+							alt='showcase'
+							fill
+							className='w-full h-full object-contain'
+						/>
 					</div>
 					<div>
 						<Button

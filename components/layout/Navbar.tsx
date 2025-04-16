@@ -12,7 +12,6 @@ export default function Navbar() {
 	return (
 		<nav className='w-full py-4 border-b md:border-0 md:bg-transparent bg-muted'>
 			<div className='container mx-auto flex items-center justify-between px-4'>
-				{/* todo: */}
 				<Link href={'/'}>
 					<h1 className='font-extrabold text-2xl text-primary'>Truepi</h1>
 				</Link>

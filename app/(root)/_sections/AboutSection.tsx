@@ -25,7 +25,17 @@ export default function AboutSection() {
 								"
 							</span>
 							It's not an ebook; it's a weapon—an automated sales tool
-							designed for rebels seeking to profit without permission.
+							designed for rebels seeking to{' '}
+							<span className=' text-white relative'>
+								<Image
+									alt=''
+									src='/brush_stroke.png'
+									className='absolute w-full h-full top-0 left-0 -z-10 scale-x-125'
+									fill
+								/>
+								profit
+							</span>{' '}
+							without permission.
 							<span className='text-8xl absolute bottom-0 right-0 translate-y-1/2 text-primary'>
 								"
 							</span>
