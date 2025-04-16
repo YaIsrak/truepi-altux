@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+	@apply scroll-smooth;
+}
+
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
@@ -118,5 +122,25 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+}
+
+:root {
+	--duration: 20s;
+	--gap: 1rem;
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(calc(-100% - var(--gap)));
+	}
+}
+
+@layer utilities {
+	.animate-marquee {
+		animation: marquee var(--duration) linear infinite;
 	}
 }

@@ -5,7 +5,9 @@ import { Suspense } from 'react';
 
 export default function ProductSection() {
 	return (
-		<section className='py-[5vmin]'>
+		<section
+			className='py-[5vmin]'
+			id='products'>
 			<div className='container mx-auto px-4 max-w-6xl'>
 				<h1 className='text-4xl font-bold text-center'>
 					Choose your Version

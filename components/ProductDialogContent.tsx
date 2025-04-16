@@ -2,14 +2,22 @@
 
 import { PRODUCTS_QUERYResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-import { MailIcon, Minus, Plus } from 'lucide-react';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { CreditCardIcon, MailIcon, Minus, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
+import CardPaymentForm from './CardPaymentForm';
+import { SlidingNumber } from './ui/animated-counter';
 import { Button } from './ui/button';
 import { DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+
+const stripePromise = loadStripe(
+	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
+);
 
 export default function ProductDialogContent({
 	product,
@@ -32,9 +40,13 @@ export default function ProductDialogContent({
 				<div>
 					<DialogTitle className='space-y-2'>
 						<p className='text-xl'>{product.title}</p>
-						<p className='text-sm'>
-							${(product.given_price as number) * count}
-						</p>
+						<div className='text-sm flex '>
+							$
+							<SlidingNumber
+								className='gap-0'
+								value={(product.given_price as number) * count}
+							/>
+						</div>
 
 						{/* counter button */}
 						<div className='flex items-center border border-green-500 rounded-2xl overflow-hidden'>
@@ -46,8 +58,7 @@ export default function ProductDialogContent({
 								onClick={() => setCount(count - 1)}>
 								<Minus />
 							</Button>
-							{/* todo: animated count */}
-							<div className='w-8 text-center'>{count}</div>
+							<SlidingNumber value={count} />
 							<Button
 								className='rounded-l-none'
 								variant='ghost'
@@ -95,9 +106,30 @@ export default function ProductDialogContent({
 							Crypto
 						</TabsTrigger>
 					</TabsList>
-					{/* todo: */}
-					<TabsContent value='card'>sdsdsd</TabsContent>
-					<TabsContent value='crypto'>Crypto</TabsContent>
+					{/* Card */}
+					<TabsContent value='card'>
+						<Elements stripe={stripePromise}>
+							<CardPaymentForm
+								amount={(product.given_price as number) * count}
+							/>
+						</Elements>
+					</TabsContent>
+					{/* Crypto */}
+					<TabsContent value='crypto'>
+						<div className='flex items-center flex-col justify-center py-[5vmin]'>
+							<div className='text-sm border border-green-500  px-6 py-4 hover:bg-green-500 hover:text-white flex items-center gap-4 transition cursor-pointer'>
+								<CreditCardIcon />
+								Continue with Crypto
+							</div>
+							<p className='text-xs mt-2 text-muted-foreground flex items-center'>
+								You'll pay $
+								<SlidingNumber
+									className='gap-0'
+									value={(product.given_price as number) * count}
+								/>
+							</p>
+						</div>
+					</TabsContent>
 				</Tabs>
 			</div>
 		</>
