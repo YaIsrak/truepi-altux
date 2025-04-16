@@ -2,22 +2,16 @@
 
 import { PRODUCTS_QUERYResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import { CreditCardIcon, MailIcon, Minus, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import CardPaymentForm from './CardPaymentForm';
 import { SlidingNumber } from './ui/animated-counter';
 import { Button } from './ui/button';
-import { DialogHeader, DialogTitle } from './ui/dialog';
+import { DialogDescription, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-
-const stripePromise = loadStripe(
-	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-);
 
 export default function ProductDialogContent({
 	product,
@@ -44,7 +38,7 @@ export default function ProductDialogContent({
 							$
 							<SlidingNumber
 								className='gap-0'
-								value={(product.given_price as number) * count}
+								value={(product.price as number) * count}
 							/>
 						</div>
 
@@ -73,6 +67,7 @@ export default function ProductDialogContent({
 						</p>
 					</DialogTitle>
 				</div>
+				<DialogDescription />
 			</DialogHeader>
 
 			<div className='mt-4'>
@@ -108,11 +103,11 @@ export default function ProductDialogContent({
 					</TabsList>
 					{/* Card */}
 					<TabsContent value='card'>
-						<Elements stripe={stripePromise}>
-							<CardPaymentForm
-								amount={(product.given_price as number) * count}
-							/>
-						</Elements>
+						<CardPaymentForm
+							count={count}
+							amount={(product.price as number) * count}
+							product={product}
+						/>
 					</TabsContent>
 					{/* Crypto */}
 					<TabsContent value='crypto'>

@@ -1,70 +1,70 @@
 'use client';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import axios from 'axios';
+import { createCheckoutSession } from '@/actions/create-checkout-session';
+import { getStripe } from '@/lib/stripe-client';
+import { PRODUCTS_QUERYResult } from '@/sanity.types';
 import { CreditCardIcon, Loader } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { SlidingNumber } from './ui/animated-counter';
 import { Button } from './ui/button';
 
-export default function CardPaymentForm({ amount }: { amount: number }) {
+// import { CreditCardIcon } from 'lucide-react';
+// import { SlidingNumber } from './ui/animated-counter';
+
+export default function CardPaymentForm({
+	amount,
+	count,
+	product,
+}: {
+	amount: number;
+	count: number;
+	product: PRODUCTS_QUERYResult[0];
+}) {
 	const [loading, setLoading] = useState(false);
-	const [cardComplete, setCardComplete] = useState(false);
-	const stripe = useStripe();
-	const elements = useElements();
 
 	const handleStripeCheckout = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
-		const cardElement = elements?.getElement('card');
-
 		try {
-			if (!stripe || !cardElement) return null;
-			const { data } = await axios.post('/api/create-payment-intent', {
+			const { sessionId } = await createCheckoutSession({
+				productName: product.title!,
 				amount,
+				quantity: count,
 			});
 
-			const clientSecret = data;
+			if (sessionId) {
+				const stripe = await getStripe();
+				await stripe?.redirectToCheckout({ sessionId });
+			}
 
-			await stripe?.confirmCardPayment(clientSecret, {
-				payment_method: { card: cardElement },
-			});
-		} catch (error: any) {
+			console.log('sessionId', sessionId);
+		} catch (error) {
+			console.error(error);
+
 			toast.error('Something went wrong', {
-				description: error.message,
+				description: (error as Error).message,
 			});
 		} finally {
 			setLoading(false);
 		}
 	};
 
-	const handleCardChange = (event: any) => {
-		setCardComplete(event.complete);
-	};
-
 	return (
-		<form
-			onSubmit={handleStripeCheckout}
-			className='flex items-center flex-col justify-center py-[5vmin]'>
-			<CardElement
-				onChange={handleCardChange}
-				className='py-2 px-4 border rounded-md w-full'
-				options={{
-					hidePostalCode: true,
-				}}
-			/>
-			<Button
-				type='submit'
-				className='text-sm border border-green-500  px-6 py-4 hover:bg-green-500 hover:text-white flex items-center gap-4 transition cursor-pointer'
-				disabled={loading}>
-				{loading ? (
-					<Loader className='size-4 animate-spin' />
-				) : (
-					<CreditCardIcon className='size-4' />
-				)}
-				Continue with card
-			</Button>
+		<div className='flex items-center flex-col justify-center py-[5vmin]'>
+			<form onSubmit={handleStripeCheckout}>
+				<Button
+					className='border border-green-500 hover:bg-green-500 hover:text-white bg-transparent text-foreground '
+					size={'lg'}
+					disabled={loading}>
+					{loading ? (
+						<Loader className='size-4 animate-spin' />
+					) : (
+						<CreditCardIcon />
+					)}
+					Continue with Crypto
+				</Button>
+			</form>
 			<div className='text-xs mt-2 text-muted-foreground flex items-center'>
 				You'll pay $
 				<SlidingNumber
@@ -72,6 +72,6 @@ export default function CardPaymentForm({ amount }: { amount: number }) {
 					value={amount}
 				/>
 			</div>
-		</form>
+		</div>
 	);
 }
