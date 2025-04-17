@@ -2,10 +2,11 @@
 
 import { PRODUCTS_QUERYResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-import { CreditCardIcon, MailIcon, Minus, Plus } from 'lucide-react';
+import { MailIcon, Minus, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import CardPaymentForm from './CardPaymentForm';
+import CryptoPaymentForm from './CryptoPaymentForm';
 import { SlidingNumber } from './ui/animated-counter';
 import { Button } from './ui/button';
 import { DialogDescription, DialogHeader, DialogTitle } from './ui/dialog';
@@ -111,19 +112,9 @@ export default function ProductDialogContent({
 					</TabsContent>
 					{/* Crypto */}
 					<TabsContent value='crypto'>
-						<div className='flex items-center flex-col justify-center py-[5vmin]'>
-							<div className='text-sm border border-green-500  px-6 py-4 hover:bg-green-500 hover:text-white flex items-center gap-4 transition cursor-pointer'>
-								<CreditCardIcon />
-								Continue with Crypto
-							</div>
-							<p className='text-xs mt-2 text-muted-foreground flex items-center'>
-								You'll pay $
-								<SlidingNumber
-									className='gap-0'
-									value={(product.given_price as number) * count}
-								/>
-							</p>
-						</div>
+						<CryptoPaymentForm
+							amount={(product.price as number) * count}
+						/>
 					</TabsContent>
 				</Tabs>
 			</div>
