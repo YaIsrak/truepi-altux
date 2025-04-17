@@ -7,3 +7,7 @@ export const PRODUCTS_QUERY = defineQuery(
 export const BLOGS_QUERY = defineQuery(
 	`*[_type == "blog"] | order(_createdAt desc)`,
 );
+
+export const REVIEWS_QUERY = defineQuery(
+	`*[_type == "review"] | order(_createdAt desc)`,
+);

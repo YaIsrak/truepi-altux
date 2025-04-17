@@ -68,6 +68,17 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Review = {
+  _id: string;
+  _type: "review";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  author?: string;
+  rating?: number;
+  description?: string;
+};
+
 export type Product = {
   _id: string;
   _type: "product";
@@ -341,7 +352,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Product | Blog | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Review | Product | Blog | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/query.ts
 // Variable: PRODUCTS_QUERY
@@ -440,6 +451,18 @@ export type BLOGS_QUERYResult = Array<{
     _key: string;
   }>;
 }>;
+// Variable: REVIEWS_QUERY
+// Query: *[_type == "review"] | order(_createdAt desc)
+export type REVIEWS_QUERYResult = Array<{
+  _id: string;
+  _type: "review";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  author?: string;
+  rating?: number;
+  description?: string;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -447,5 +470,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"product\"] | order(_createdAt asc)": PRODUCTS_QUERYResult;
     "*[_type == \"blog\"] | order(_createdAt desc)": BLOGS_QUERYResult;
+    "*[_type == \"review\"] | order(_createdAt desc)": REVIEWS_QUERYResult;
   }
 }

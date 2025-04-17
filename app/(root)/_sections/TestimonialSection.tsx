@@ -1,5 +1,6 @@
 import { InfiniteSlider } from '@/components/ui/infinite-slider';
 import { Star } from 'lucide-react';
+import { Suspense } from 'react';
 import TestimonialMarquee from './_components/TestimonialMarquee';
 
 export default function TestimonialSection() {
@@ -22,11 +23,13 @@ export default function TestimonialSection() {
 					))}
 				</div>
 				<div className='relative flex w-full flex-col items-center justify-center overflow-hidden mt-12'>
-					<InfiniteSlider
-						gap={24}
-						speedOnHover={50}>
-						<TestimonialMarquee />
-					</InfiniteSlider>
+					<Suspense fallback={<div>Loading...</div>}>
+						<InfiniteSlider
+							gap={24}
+							speedOnHover={50}>
+							<TestimonialMarquee />
+						</InfiniteSlider>
+					</Suspense>
 					<div className='pointer-events-none absolute inset-y-0 left-0 hidden w-1/5 bg-gradient-to-r from-background sm:block' />
 					<div className='pointer-events-none absolute inset-y-0 right-0 hidden w-1/5 bg-gradient-to-l from-background sm:block' />
 				</div>
