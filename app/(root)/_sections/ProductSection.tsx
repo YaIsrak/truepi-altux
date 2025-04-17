@@ -1,4 +1,5 @@
 import ProductCard from '@/components/ProductCard';
+import { BlurFade } from '@/components/ui/blur-fade';
 import { sanityFetch } from '@/sanity/lib/live';
 import { PRODUCTS_QUERY } from '@/sanity/lib/query';
 import { Suspense } from 'react';
@@ -8,7 +9,7 @@ export default function ProductSection() {
 		<section
 			className='py-[5vmin]'
 			id='products'>
-			<div className='container mx-auto px-4 max-w-6xl'>
+			<BlurFade className='container mx-auto px-4 max-w-6xl'>
 				<h1 className='text-4xl font-bold text-center'>
 					Choose your Version
 				</h1>
@@ -17,7 +18,7 @@ export default function ProductSection() {
 						<ProductList />
 					</Suspense>
 				</div>
-			</div>
+			</BlurFade>
 		</section>
 	);
 }
@@ -29,11 +30,15 @@ async function ProductList() {
 
 	return (
 		<>
-			{products.map((product) => (
-				<ProductCard
-					key={product._id}
-					product={product}
-				/>
+			{products.map((product, i) => (
+				<BlurFade
+					key={i}
+					delay={i * 0.1}>
+					<ProductCard
+						key={product._id}
+						product={product}
+					/>
+				</BlurFade>
 			))}
 		</>
 	);

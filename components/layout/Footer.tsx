@@ -1,25 +1,26 @@
 import { navLinks } from '@/lib/constant';
 import { FaFacebookF, FaGithub, FaTwitter } from 'react-icons/fa6';
+import { BlurFade } from '../ui/blur-fade';
 
 export default function Footer() {
 	return (
 		<footer
-			className='bg-gray-900 text-gray-300 py-12'
+			className='bg-[#032e59] text-gray-300 py-12'
 			id='contact'>
-			<div className='container mx-auto px-4 max-w-6xl'>
+			<BlurFade className='container mx-auto px-4 max-w-6xl'>
 				<div className='grid grid-cols-1 md:grid-cols-4 gap-8 mb-8'>
 					{/* Logo + Description */}
-					<div>
+					<BlurFade delay={0.15}>
 						<h2 className='text-white text-lg font-semibold mb-2 flex items-center gap-2'>
 							Truepi
 						</h2>
 						<p className='text-sm'>
 							Transforming businesses through Innovation
 						</p>
-					</div>
+					</BlurFade>
 
 					{/* Products */}
-					<div>
+					<BlurFade delay={0.3}>
 						<h3 className='text-white font-medium mb-3'>Products</h3>
 						<ul className='space-y-2 text-sm'>
 							<li>
@@ -51,10 +52,10 @@ export default function Footer() {
 								</a>
 							</li>
 						</ul>
-					</div>
+					</BlurFade>
 
 					{/* Company */}
-					<div>
+					<BlurFade delay={0.45}>
 						<h3 className='text-white font-medium mb-3'>Company</h3>
 						<ul className='space-y-2 text-sm'>
 							{navLinks.map((link) => (
@@ -67,10 +68,10 @@ export default function Footer() {
 								</li>
 							))}
 						</ul>
-					</div>
+					</BlurFade>
 
 					{/* Connect */}
-					<div>
+					<BlurFade delay={0.6}>
 						<h3 className='text-white font-medium mb-3'>Connect</h3>
 						<div className='flex space-x-4'>
 							<a
@@ -89,14 +90,14 @@ export default function Footer() {
 								<FaGithub />
 							</a>
 						</div>
-					</div>
+					</BlurFade>
 				</div>
 
 				{/* Bottom Copyright */}
 				<div className='border-t border-gray-700 pt-4 text-center text-sm'>
 					&copy; {new Date().getFullYear()} Company. All rights reserved.
 				</div>
-			</div>
+			</BlurFade>
 		</footer>
 	);
 }

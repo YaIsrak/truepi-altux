@@ -5,13 +5,14 @@ import { cn } from '@/lib/utils';
 import { MenuIcon, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { BlurFade } from '../ui/blur-fade';
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<nav className='w-full py-4 border-b md:border-0 md:bg-transparent bg-muted'>
-			<div className='container mx-auto flex items-center justify-between px-4'>
+			<BlurFade className='container mx-auto flex items-center justify-between px-4'>
 				<Link href={'/'}>
 					<h1 className='font-extrabold text-2xl text-primary'>Truepi</h1>
 				</Link>
@@ -33,7 +34,7 @@ export default function Navbar() {
 					onClick={() => setIsOpen(!isOpen)}>
 					{isOpen ? <X /> : <MenuIcon />}
 				</div>
-			</div>
+			</BlurFade>
 
 			{/* Mobile Menu */}
 			<div
