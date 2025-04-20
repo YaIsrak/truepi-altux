@@ -1,6 +1,7 @@
 'use client';
 import { createCheckoutSession } from '@/actions/create-checkout-session';
 import { getStripe } from '@/lib/stripe-client';
+import { convertToSubCurrentcy } from '@/lib/utils';
 import { PRODUCTS_QUERYResult } from '@/sanity.types';
 import { CreditCardIcon, Loader } from 'lucide-react';
 import { useState } from 'react';
@@ -25,8 +26,9 @@ export default function CardPaymentForm({
 
 		try {
 			const { sessionId } = await createCheckoutSession({
-				productName: product.title!,
-				amount,
+				// productName: product.title!,
+				product,
+				amount: convertToSubCurrentcy(amount),
 				quantity: count,
 			});
 

@@ -20,6 +20,7 @@ export default function ProductDialogContent({
 	product: PRODUCTS_QUERYResult[0];
 }) {
 	const [count, setCount] = useState(1);
+	const [email, setEmail] = useState('');
 
 	return (
 		<>
@@ -83,6 +84,8 @@ export default function ProductDialogContent({
 							type='email'
 							placeholder='Enter your email'
 							className='w-full rounded-lg bg-background pl-8'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
 				</div>
