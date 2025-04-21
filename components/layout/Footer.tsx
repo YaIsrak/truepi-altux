@@ -1,103 +1,58 @@
-import { navLinks } from '@/lib/constant';
-import { FaFacebookF, FaGithub, FaTwitter } from 'react-icons/fa6';
-import { BlurFade } from '../ui/blur-fade';
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+import { footerNavLinks } from '@/lib/constant';
 
 export default function Footer() {
-	return (
-		<footer
-			className='bg-[#032e59] text-gray-300 py-12'
-			id='contact'>
-			<BlurFade className='container mx-auto px-4 max-w-6xl'>
-				<div className='grid grid-cols-1 md:grid-cols-4 gap-8 mb-8'>
-					{/* Logo + Description */}
-					<BlurFade delay={0.15}>
-						<h2 className='text-white text-lg font-semibold mb-2 flex items-center gap-2'>
-							Truepi
-						</h2>
-						<p className='text-sm'>
-							Transforming businesses through Innovation
-						</p>
-					</BlurFade>
+  const [isOpen, setIsOpen] = useState(false);
 
-					{/* Products */}
-					<BlurFade delay={0.3}>
-						<h3 className='text-white font-medium mb-3'>Products</h3>
-						<ul className='space-y-2 text-sm'>
-							<li>
-								<a
-									href='#'
-									className='hover:text-white'>
-									Features
-								</a>
-							</li>
-							<li>
-								<a
-									href='#'
-									className='hover:text-white'>
-									Solutions
-								</a>
-							</li>
-							<li>
-								<a
-									href='#'
-									className='hover:text-white'>
-									Enterprise
-								</a>
-							</li>
-							<li>
-								<a
-									href='#'
-									className='hover:text-white'>
-									Pricing
-								</a>
-							</li>
-						</ul>
-					</BlurFade>
+  const toggleMenu = () => setIsOpen(!isOpen);
 
-					{/* Company */}
-					<BlurFade delay={0.45}>
-						<h3 className='text-white font-medium mb-3'>Company</h3>
-						<ul className='space-y-2 text-sm'>
-							{navLinks.map((link) => (
-								<li key={link.href}>
-									<a
-										href={link.href}
-										className='hover:text-white'>
-										{link.name}
-									</a>
-								</li>
-							))}
-						</ul>
-					</BlurFade>
+ 
 
-					{/* Connect */}
-					<BlurFade delay={0.6}>
-						<h3 className='text-white font-medium mb-3'>Connect</h3>
-						<div className='flex space-x-4'>
-							<a
-								href='#'
-								className='hover:text-white'>
-								<FaTwitter />
-							</a>
-							<a
-								href='#'
-								className='hover:text-white'>
-								<FaFacebookF />
-							</a>
-							<a
-								href='#'
-								className='hover:text-white'>
-								<FaGithub />
-							</a>
-						</div>
-					</BlurFade>
-				</div>
+  return (
+    <footer className="bg-gradient-to-br from-gray-900 to-gray-800  text-gray-300 py-12" id="contact">
+      <div className="container mx-auto px-4 flex justify-center">
 
-				{/* Bottom Copyright */}
-				<div className='border-t border-gray-700 pt-4 text-center text-sm'>
-					&copy; {new Date().getFullYear()} Company. All rights reserved.
-				</div>
-			</BlurFade>
-		</footer>
-	);
+        {/* Desktop Nav */}
+        <nav className="hidden sm:flex gap-6">
+          {footerNavLinks.map((item) => (
+            <Link key={item.name} href={item.href} className="hover:text-white">
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Mobile Hamburger */}
+        <div className="sm:hidden flex ml-auto justify-end">
+          <button onClick={toggleMenu} aria-label="Toggle menu">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <nav className="sm:hidden mt-4 px-4 flex flex-col items-center gap-4">
+          {footerNavLinks.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="text-gray-300 hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+      )}
+
+      {/* Footer Bottom */}
+      <div className="mt-8 text-center text-sm">
+        &copy; {new Date().getFullYear()} www.Truepi.com - All rights reserved.
+      </div>
+    </footer>
+  );
 }
