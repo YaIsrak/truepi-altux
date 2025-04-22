@@ -28,6 +28,7 @@ export default function CardPaymentForm({
 				productName: product.title!,
 				amount,
 				quantity: count,
+				product,
 			});
 
 			if (sessionId) {

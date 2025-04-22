@@ -12,19 +12,6 @@ export const salesType = defineType({
 			validation: (Rule) => Rule.required().email(),
 		}),
 		defineField({
-			name: 'stripeId',
-			title: 'Stripe Payment ID',
-			type: 'string',
-			validation: (Rule) => Rule.required(),
-		}),
-		defineField({
-			name: 'product',
-			title: 'Product',
-			type: 'reference',
-			to: [{ type: 'product' }],
-			validation: (Rule) => Rule.required(),
-		}),
-		defineField({
 			name: 'amount',
 			title: 'Amount Paid',
 			type: 'number',
@@ -32,9 +19,20 @@ export const salesType = defineType({
 		}),
 		defineField({
 			name: 'quantity',
-			title: 'Quantity',
 			type: 'number',
 			validation: (Rule) => Rule.required().min(1),
+		}),
+		defineField({
+			name: 'product',
+			type: 'reference',
+			to: [{ type: 'product' }],
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
+			name: 'stripeId',
+			title: 'Stripe Payment ID',
+			type: 'string',
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: 'createdAt',

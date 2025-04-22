@@ -11,3 +11,10 @@ export const BLOGS_QUERY = defineQuery(
 export const REVIEWS_QUERY = defineQuery(
 	`*[_type == "review"] | order(_createdAt desc)`,
 );
+
+export const SALE_QUERY = defineQuery(
+	`*[_type == "sale" && stripeId == $stripeId][0]{
+		...,
+		product->
+	}`,
+);
