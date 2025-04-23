@@ -47,6 +47,12 @@ export const productType = defineType({
 			type: 'string',
 			validation: (Rule) => Rule.required(),
 		}),
+
+		defineField({
+			name: 'file',
+			type: 'file',
+			validation: (Rule) => Rule.required(),
+		}),
 	],
 	preview: {
 		select: {

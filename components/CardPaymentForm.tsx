@@ -68,6 +68,32 @@ export default function CardPaymentForm({
 					value={amount}
 				/>
 			</div>
+
+			{/* <PayPalButtons
+				createOrder={(data, actions) => {
+					return actions.order.create({
+						purchase_units: [
+							{
+								amount: {
+									currency_code: 'USD',
+									value: '20',
+								},
+							},
+						],
+						intent: 'CAPTURE',
+					});
+				}}
+				onApprove={(data, actions) => {
+					if (actions.order) {
+						return actions.order.capture().then((details) => {
+							console.log('Payment Approved: ', details);
+						});
+					} else {
+						console.error('Order actions are undefined.');
+						return Promise.resolve(); // Ensure a Promise<void> is always returned
+					}
+				}}
+			/> */}
 		</div>
 	);
 }

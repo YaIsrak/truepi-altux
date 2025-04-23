@@ -18,3 +18,10 @@ export const SALE_QUERY = defineQuery(
 		product->
 	}`,
 );
+
+export const USER_SALES_QUERY = defineQuery(
+	`*[_type == "sale" && customerEmail == $customerEmail] | order(_createdAt desc){
+	...,
+		product->{..., "downloadLink": file.asset->url},
+	}`,
+);

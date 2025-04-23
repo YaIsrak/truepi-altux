@@ -39,28 +39,6 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
-export type SanityFileAsset = {
-  _id: string;
-  _type: "sanity.fileAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
-};
-
 export type Geopoint = {
   _type: "geopoint";
   lat?: number;
@@ -77,6 +55,7 @@ export type Sale = {
   customerEmail?: string;
   amount?: number;
   quantity?: number;
+  approved?: boolean;
   product?: {
     _ref: string;
     _type: "reference";
@@ -135,6 +114,38 @@ export type Product = {
   stock?: number;
   color?: Color;
   description?: string;
+  file?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+  };
+};
+
+export type SanityFileAsset = {
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
 };
 
 export type Blog = {
@@ -384,7 +395,7 @@ export type HslaColor = {
   a?: number;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sale | Review | Product | Blog | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Sale | Review | Product | SanityFileAsset | Blog | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/query.ts
 // Variable: PRODUCTS_QUERY
@@ -413,6 +424,16 @@ export type PRODUCTS_QUERYResult = Array<{
   stock?: number;
   color?: Color;
   description?: string;
+  file?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+  };
 }>;
 // Variable: BLOGS_QUERY
 // Query: *[_type == "blog"] | order(_createdAt desc)
@@ -509,7 +530,7 @@ export type REVIEWS_QUERYResult = Array<{
   description?: string;
 }>;
 // Variable: SALE_QUERY
-// Query: *[_type == "sale" && stripeId == $stripeId][0]
+// Query: *[_type == "sale" && stripeId == $stripeId][0]{		...,		product->	}
 export type SALE_QUERYResult = {
   _id: string;
   _type: "sale";
@@ -519,15 +540,96 @@ export type SALE_QUERYResult = {
   customerEmail?: string;
   amount?: number;
   quantity?: number;
-  product?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "product";
-  };
+  approved?: boolean;
+  product: {
+    _id: string;
+    _type: "product";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    given_price?: number;
+    price?: number;
+    stock?: number;
+    color?: Color;
+    description?: string;
+    file?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+      };
+      media?: unknown;
+      _type: "file";
+    };
+  } | null;
   stripeId?: string;
   createdAt?: string;
 } | null;
+// Variable: USER_SALES_QUERY
+// Query: *[_type == "sale" && customerEmail == $customerEmail] | order(_createdAt desc){	...,		product->{..., "downloadLink": file.asset->url},	}
+export type USER_SALES_QUERYResult = Array<{
+  _id: string;
+  _type: "sale";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  customerEmail?: string;
+  amount?: number;
+  quantity?: number;
+  approved?: boolean;
+  product: {
+    _id: string;
+    _type: "product";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    given_price?: number;
+    price?: number;
+    stock?: number;
+    color?: Color;
+    description?: string;
+    file?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+      };
+      media?: unknown;
+      _type: "file";
+    };
+    downloadLink: string | null;
+  } | null;
+  stripeId?: string;
+  createdAt?: string;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -536,6 +638,7 @@ declare module "@sanity/client" {
     "*[_type == \"product\"] | order(_createdAt asc)": PRODUCTS_QUERYResult;
     "*[_type == \"blog\"] | order(_createdAt desc)": BLOGS_QUERYResult;
     "*[_type == \"review\"] | order(_createdAt desc)": REVIEWS_QUERYResult;
-    "*[_type == \"sale\" && stripeId == $stripeId][0]": SALE_QUERYResult;
+    "*[_type == \"sale\" && stripeId == $stripeId][0]{\n\t\t...,\n\t\tproduct->\n\t}": SALE_QUERYResult;
+    "*[_type == \"sale\" && customerEmail == $customerEmail] | order(_createdAt desc){\n\t...,\n\t\tproduct->{..., \"downloadLink\": file.asset->url},\n\t}": USER_SALES_QUERYResult;
   }
 }

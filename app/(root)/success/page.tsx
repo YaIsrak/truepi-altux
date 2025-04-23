@@ -26,8 +26,10 @@ export default async function SuccessPage({
 						customerEmail={sale.customerEmail!}
 						amount={sale.amount!}
 						quantity={sale.quantity!}
-						productName={sale.product.title}
-						productImage={urlFor(sale.product?.image as string).url()}
+						productName={sale?.product?.title ?? 'Unknown Product'}
+						productImage={urlFor(
+							sale.product?.image as unknown as string,
+						).url()}
 						stripeId={sale.stripeId!}
 					/>
 				) : (

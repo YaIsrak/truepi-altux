@@ -1,5 +1,6 @@
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
+import { SessionProvider } from 'next-auth/react';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 
@@ -34,10 +35,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en' className='scrollbar-thin h-4 scrollbar-thumb-primary scrollbar-track-gray-700 scroll-smooth'>
+		<html
+			lang='en'
+			className='scrollbar-thin h-4 scrollbar-thumb-primary scrollbar-track-gray-700 scroll-smooth'>
 			<body className={`${poppins.className}`}>
-				{children}
-				<Toaster richColors />
+				<SessionProvider>
+					{children}
+					<Toaster richColors />
+				</SessionProvider>
 			</body>
 		</html>
 	);

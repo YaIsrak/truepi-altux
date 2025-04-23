@@ -23,6 +23,11 @@ export const salesType = defineType({
 			validation: (Rule) => Rule.required().min(1),
 		}),
 		defineField({
+			name: 'approved',
+			type: 'boolean',
+			initialValue: () => false,
+		}),
+		defineField({
 			name: 'product',
 			type: 'reference',
 			to: [{ type: 'product' }],
@@ -50,12 +55,14 @@ export const salesType = defineType({
 			media: 'product.image',
 			quantity: 'quantity',
 			price: 'amount',
+			approved: 'approved',
 		},
 
 		prepare(selection) {
 			const { email, title, media, quantity, price } = selection;
+			const approved = selection.approved ? 'Approved' : 'Pending';
 			return {
-				title: `${title} $${price}`,
+				title: `${title} - ${approved} - $${price.toFixed(2)}`,
 				subtitle: `by ${email} - Quantity: ${quantity}`,
 				media,
 			};

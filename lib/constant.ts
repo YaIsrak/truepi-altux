@@ -12,6 +12,7 @@ export const navLinks = [
 		href: '/#comparison',
 	},
 ];
+
 export const footerNavLinks = [
 	{
 		name: 'Refund Policy',

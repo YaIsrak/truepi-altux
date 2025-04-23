@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 type SuccessMessageProps = {
 	customerEmail: string;
@@ -49,6 +50,12 @@ export default function SuccessMessage({
 					<strong>Total Paid:</strong> ${amount.toFixed(2)}
 				</p>
 			</div>
+			<Link
+				href='/dashboard'
+				className='text-blue-600 underline mt-4 text-center'>
+				You can download your product from your <br />
+				<span className='font-bold'>Dashboard</span>
+			</Link>
 		</div>
 	);
 }
