@@ -630,6 +630,56 @@ export type USER_SALES_QUERYResult = Array<{
   stripeId?: string;
   createdAt?: string;
 }>;
+// Variable: SALES_QUERY
+// Query: *[_type == "sale"]{		...,		product->	}
+export type SALES_QUERYResult = Array<{
+  _id: string;
+  _type: "sale";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  customerEmail?: string;
+  amount?: number;
+  quantity?: number;
+  approved?: boolean;
+  product: {
+    _id: string;
+    _type: "product";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    given_price?: number;
+    price?: number;
+    stock?: number;
+    color?: Color;
+    description?: string;
+    file?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+      };
+      media?: unknown;
+      _type: "file";
+    };
+  } | null;
+  stripeId?: string;
+  createdAt?: string;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -640,5 +690,6 @@ declare module "@sanity/client" {
     "*[_type == \"review\"] | order(_createdAt desc)": REVIEWS_QUERYResult;
     "*[_type == \"sale\" && stripeId == $stripeId][0]{\n\t\t...,\n\t\tproduct->\n\t}": SALE_QUERYResult;
     "*[_type == \"sale\" && customerEmail == $customerEmail] | order(_createdAt desc){\n\t...,\n\t\tproduct->{..., \"downloadLink\": file.asset->url},\n\t}": USER_SALES_QUERYResult;
+    "*[_type == \"sale\"]{\n\t\t...,\n\t\tproduct->\n\t}": SALES_QUERYResult;
   }
 }

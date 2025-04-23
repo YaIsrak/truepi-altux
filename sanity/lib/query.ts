@@ -25,3 +25,10 @@ export const USER_SALES_QUERY = defineQuery(
 		product->{..., "downloadLink": file.asset->url},
 	}`,
 );
+
+export const SALES_QUERY = defineQuery(
+	`*[_type == "sale"]{
+		...,
+		product->
+	}`,
+);
