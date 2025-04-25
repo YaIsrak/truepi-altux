@@ -20,3 +20,18 @@ export function generateRandomString(length: number) {
 	}
 	return result;
 }
+
+export function groupVisitorsByDate(visitors: any[]) {
+	const counts: Record<string, number> = {};
+
+	for (const v of visitors) {
+		const date = new Date(v.visitedAt).toISOString().split('T')[0]; // yyyy-mm-dd
+		counts[date] = (counts[date] || 0) + 1;
+	}
+
+	// Convert to array for chart
+	return Object.entries(counts).map(([date, count]) => ({
+		date,
+		count,
+	}));
+}

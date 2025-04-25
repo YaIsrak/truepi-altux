@@ -40,6 +40,7 @@ export default function RootLayout({
 			className='scrollbar-thin h-4 scrollbar-thumb-primary scrollbar-track-gray-700 scroll-smooth'>
 			<body className={`${poppins.className}`}>
 				<SessionProvider>
+					{/* <TrackVisitor /> */}
 					{children}
 					<Toaster richColors />
 				</SessionProvider>
