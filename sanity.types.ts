@@ -664,7 +664,7 @@ export type USER_SALES_QUERYResult = Array<{
 // Variable: SALES_QUERY
 // Query: *[_type == "sale"]{		...,		product->	}
 export type SALES_QUERYResult = Array<{
-	email: ReactI18NextChildren | Iterable<ReactI18NextChildren>;
+	email: string | Iterable<string>;
 	_id: string;
 	_type: 'sale';
 	_createdAt: string;
