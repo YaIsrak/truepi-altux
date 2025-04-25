@@ -191,6 +191,7 @@ export default function Navbar() {
 								{link.name}
 							</a>
 						))}
+						<UserButton mobile />
 					</div>
 				</div>
 			</div>

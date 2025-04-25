@@ -1,8 +1,11 @@
 'use client';
 import { createCheckoutSession } from '@/actions/create-checkout-session';
 import { getStripe } from '@/lib/stripe-client';
+import { convertToSubCurrentcy } from '@/lib/utils';
 import { PRODUCTS_QUERYResult } from '@/sanity.types';
 import { CreditCardIcon, Loader } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { SlidingNumber } from './ui/animated-counter';
@@ -18,15 +21,25 @@ export default function CardPaymentForm({
 	product: PRODUCTS_QUERYResult[0];
 }) {
 	const [loading, setLoading] = useState(false);
+	const { data: session } = useSession();
+	const router = useRouter();
 
 	const handleStripeCheckout = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
 		try {
+			if (!session) {
+				toast.error('Please sign in to continue', {
+					description: 'You need to be signed in to make a purchase',
+				});
+				router.push('/login?redirect=/checkout');
+				return;
+			}
+
 			const { sessionId } = await createCheckoutSession({
 				productName: product.title!,
-				amount,
+				amount: convertToSubCurrentcy(amount),
 				quantity: count,
 				product,
 			});
@@ -68,32 +81,6 @@ export default function CardPaymentForm({
 					value={amount}
 				/>
 			</div>
-
-			{/* <PayPalButtons
-				createOrder={(data, actions) => {
-					return actions.order.create({
-						purchase_units: [
-							{
-								amount: {
-									currency_code: 'USD',
-									value: '20',
-								},
-							},
-						],
-						intent: 'CAPTURE',
-					});
-				}}
-				onApprove={(data, actions) => {
-					if (actions.order) {
-						return actions.order.capture().then((details) => {
-							console.log('Payment Approved: ', details);
-						});
-					} else {
-						console.error('Order actions are undefined.');
-						return Promise.resolve(); // Ensure a Promise<void> is always returned
-					}
-				}}
-			/> */}
 		</div>
 	);
 }

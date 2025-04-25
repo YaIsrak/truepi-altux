@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { UserIcon } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -11,12 +12,17 @@ import {
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 
-export default function UserButton() {
+export default function UserButton({ mobile }: { mobile?: boolean }) {
 	const { data: session } = useSession();
 
 	if (!session?.user)
 		return (
-			<Button>
+			<Button
+				className={cn(
+					'rounded-full',
+					mobile && 'bg-white text-primary hover:bg-gray-200',
+				)}
+				asChild>
 				<Link href={'/login'}>Login</Link>
 			</Button>
 		);
@@ -25,9 +31,17 @@ export default function UserButton() {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button
-					size='icon'
-					className='rounded-full'>
+					size={mobile ? 'default' : 'icon'}
+					className={cn(
+						'rounded-full',
+						mobile && 'bg-white text-primary hover:bg-gray-200',
+					)}>
 					<UserIcon className='size-4' />
+					{mobile && (
+						<span className='text-sm font-semibold text-primary'>
+							{session.user.name}
+						</span>
+					)}
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
