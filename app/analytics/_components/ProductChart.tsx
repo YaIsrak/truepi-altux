@@ -16,20 +16,6 @@ import {
 import { SALES_QUERYResult } from '@/sanity.types';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 
-type Sale = {
-	_createdAt: string; // e.g. "2025-04-25T12:34:56Z"
-	amount: number;
-};
-
-const chartData = [
-	{ month: 'January', desktop: 186 },
-	{ month: 'February', desktop: 305 },
-	{ month: 'March', desktop: 237 },
-	{ month: 'April', desktop: 73 },
-	{ month: 'May', desktop: 209 },
-	{ month: 'June', desktop: 214 },
-];
-
 const chartConfig = {
 	desktop: {
 		label: 'Amount',
