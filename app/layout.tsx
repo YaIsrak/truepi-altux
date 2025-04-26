@@ -1,3 +1,4 @@
+import TrackVisitor from '@/components/TrackVisitor';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
@@ -31,7 +32,7 @@ export default function RootLayout({
 			className='scrollbar-thin h-4 scrollbar-thumb-primary scrollbar-track-gray-700 scroll-smooth'>
 			<body className={`${outfit.className} ${parisienne.variable}`}>
 				<SessionProvider>
-					{/* <TrackVisitor /> */}
+					<TrackVisitor />
 					{children}
 					<Toaster richColors />
 				</SessionProvider>
