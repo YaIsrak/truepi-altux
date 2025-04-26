@@ -22,9 +22,9 @@ export default async function DashboardPage() {
 		<div className='container mx-auto px-4'>
 			<div className='p-6 min-h-screen'>
 				<h2 className='text-2xl font-bold mb-6'>Ebook Purchase History</h2>
-				<div className='rounded-xl border border-gray-200 overflow-x-auto'>
-					<table className='bg-white w-full text-sm text-left'>
-						<thead className='bg-gray-100 text-gray-600 uppercase text-xs'>
+				<div className='rounded-xl border border-gray-200/10 overflow-x-auto'>
+					<table className='bg-[#121212] w-full text-sm text-left'>
+						<thead className='bg-gray-100/5 text-gray-600 uppercase text-xs'>
 							<tr>
 								<th className='px-6 py-3'>Ebook Title</th>
 								<th className='px-6 py-3'>Purchase Time</th>
@@ -37,7 +37,7 @@ export default async function DashboardPage() {
 							{purchases.map((book) => (
 								<tr
 									key={book._id}
-									className='border-b hover:bg-gray-50'>
+									className='border-b border-white/10 hover:bg-gray-50/5'>
 									<td className='px-6 py-4'>
 										<div className='flex items-center'>
 											{book.product?.image && (

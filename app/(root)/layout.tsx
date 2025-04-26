@@ -1,6 +1,5 @@
 import Footer from '@/components/layout/Footer';
 import Navbar from '@/components/layout/Navbar';
-import PaypalProvider from '@/components/layout/paypal-provider';
 import { SanityLive } from '@/sanity/lib/live';
 
 export default function MainLayout({
@@ -9,12 +8,12 @@ export default function MainLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<PaypalProvider>
+		<div className='bg-black text-white'>
 			<Navbar />
-			<main>{children}</main>
+			<main className='relative'>{children}</main>
 			<Footer />
 
 			<SanityLive />
-		</PaypalProvider>
+		</div>
 	);
 }

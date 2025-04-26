@@ -1,58 +1,30 @@
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import { footerNavLinks } from '@/lib/constant';
-
 export default function Footer() {
-  const [isOpen, setIsOpen] = useState(false);
+	return (
+		<footer className='py-[15vmin] bg-[#121212]'>
+			<div className='container mx-auto px-4'>
+				<div className='flex flex-col md:flex-row items-center justify-center'>
+					<div className='flex-1 text-5xl'>
+						<h3 className='font-bold text-5xl max-w-md'>
+							<span className='font-parisienne text-7xl font-normal'>
+								C
+							</span>
+							HASE FOREVER OR FINALLY MOVE TOWARDS
+						</h3>
+					</div>
+					<div className='flex-1 text-9xl text-primary uppercase font-bold'>
+						Success
+					</div>
+				</div>
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
- 
-
-  return (
-    <footer className="bg-gradient-to-br from-gray-900 to-gray-800  text-gray-300 py-12" id="contact">
-      <div className="container mx-auto px-4 flex justify-center">
-
-        {/* Desktop Nav */}
-        <nav className="hidden sm:flex gap-6">
-          {footerNavLinks.map((item) => (
-            <Link key={item.name} href={item.href} className="hover:text-white">
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Mobile Hamburger */}
-        <div className="sm:hidden flex ml-auto justify-end">
-          <button onClick={toggleMenu} aria-label="Toggle menu">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <nav className="sm:hidden mt-4 px-4 flex flex-col items-center gap-4">
-          {footerNavLinks.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-gray-300 hover:text-white"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-      )}
-
-      {/* Footer Bottom */}
-      <div className="mt-8 text-center text-sm">
-        &copy; {new Date().getFullYear()} www.Truepi.com - All rights reserved.
-      </div>
-    </footer>
-  );
+				<div className='flex items-center justify-between mt-16 opacity-50'>
+					<p>
+						Terms of refund <br />© 2025 www.cashmachine.io - All rights
+						reserved.
+					</p>
+					<p>Terms and conditions</p>
+					<p>Contact</p>
+				</div>
+			</div>
+		</footer>
+	);
 }

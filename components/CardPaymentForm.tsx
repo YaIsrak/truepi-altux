@@ -2,12 +2,12 @@
 import { createCheckoutSession } from '@/actions/create-checkout-session';
 import { getStripe } from '@/lib/stripe-client';
 import { convertToSubCurrentcy } from '@/lib/utils';
-import { PRODUCTS_QUERYResult } from '@/sanity.types';
 import { CreditCardIcon, Loader } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { ProductProps } from './ProductDialogContent';
 import { SlidingNumber } from './ui/animated-counter';
 import { Button } from './ui/button';
 
@@ -18,7 +18,7 @@ export default function CardPaymentForm({
 }: {
 	amount: number;
 	count: number;
-	product: PRODUCTS_QUERYResult[0];
+	product: ProductProps['product'];
 }) {
 	const [loading, setLoading] = useState(false);
 	const { data: session } = useSession();
@@ -38,7 +38,7 @@ export default function CardPaymentForm({
 			}
 
 			const { sessionId } = await createCheckoutSession({
-				productName: product.title!,
+				productName: product.name!,
 				amount: convertToSubCurrentcy(amount),
 				quantity: count,
 				product,

@@ -1,6 +1,6 @@
 'use server';
 
-import { PRODUCTS_QUERYResult } from '@/sanity.types';
+import { ProductProps } from '@/components/ProductDialogContent';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -16,7 +16,7 @@ export async function createCheckoutSession({
 	productName: string;
 	amount: number; // in cents
 	quantity: number;
-	product: PRODUCTS_QUERYResult[0];
+	product: ProductProps['product'];
 }) {
 	try {
 		const session = await stripe.checkout.sessions.create({

@@ -1,7 +1,5 @@
 'use client';
 
-import { PRODUCTS_QUERYResult } from '@/sanity.types';
-import { urlFor } from '@/sanity/lib/image';
 import { MailIcon, Minus, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -14,11 +12,19 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 
-export default function ProductDialogContent({
-	product,
-}: {
-	product: PRODUCTS_QUERYResult[0];
-}) {
+export interface ProductProps {
+	product: {
+		_id: string;
+		name: string;
+		price: number;
+		color: string;
+		image: string;
+		originalPrice: number;
+		features: string[];
+	};
+}
+
+export default function ProductDialogContent({ product }: ProductProps) {
 	const [count, setCount] = useState(1);
 
 	return (
@@ -26,7 +32,7 @@ export default function ProductDialogContent({
 			<DialogHeader className='flex flex-row'>
 				<div className='relative mr-4'>
 					<Image
-						src={product.image ? urlFor(product.image).url() : ''}
+						src={product.image}
 						alt='Product'
 						width={100}
 						height={100}
@@ -34,12 +40,12 @@ export default function ProductDialogContent({
 				</div>
 				<div>
 					<DialogTitle className='space-y-2'>
-						<p className='text-xl'>{product.title}</p>
+						<p className='text-xl'>{product.name}</p>
 						<div className='text-sm flex '>
 							$
 							<SlidingNumber
 								className='gap-0'
-								value={(product.price as number) * count}
+								value={product.price * count}
 							/>
 						</div>
 
@@ -62,10 +68,6 @@ export default function ProductDialogContent({
 								<Plus />
 							</Button>
 						</div>
-
-						<p className='text-xs font-light'>
-							{product.stock} Available
-						</p>
 					</DialogTitle>
 				</div>
 				<DialogDescription />

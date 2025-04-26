@@ -1,29 +1,19 @@
-import TrackVisitor from '@/components/TrackVisitor';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
-import { Poppins } from 'next/font/google';
+import { Outfit, Parisienne } from 'next/font/google';
 import './globals.css';
 
-const poppins = Poppins({
-	weight: ['400', '500', '600', '700'],
+const outfit = Outfit({
+	variable: '--font-outfit',
 	subsets: ['latin'],
 });
 
-// 	variable: '--font-neue-haas',
-// 	src: [
-// 		{
-// 			path: '../public/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Bold.ttf',
-// 			weight: '700',
-// 			style: 'normal',
-// 		},
-// 		{
-// 			path: '../public/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Regular.ttf',
-// 			weight: '400',
-// 			style: 'normal',
-// 		},
-// 	],
-// });
+const parisienne = Parisienne({
+	variable: '--font-parisienne',
+	subsets: ['latin'],
+	weight: '400',
+});
 
 export const metadata: Metadata = {
 	title: 'Truepi',
@@ -39,9 +29,9 @@ export default function RootLayout({
 		<html
 			lang='en'
 			className='scrollbar-thin h-4 scrollbar-thumb-primary scrollbar-track-gray-700 scroll-smooth'>
-			<body className={`${poppins.className}`}>
+			<body className={`${outfit.className} ${parisienne.variable}`}>
 				<SessionProvider>
-					<TrackVisitor />
+					{/* <TrackVisitor /> */}
 					{children}
 					<Toaster richColors />
 				</SessionProvider>
