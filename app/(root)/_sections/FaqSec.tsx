@@ -57,16 +57,16 @@ export default function FaqSec() {
 						<Accordion
 							type='single'
 							collapsible
-							className='w-full space-y-4'>
+							className='w-full space-y-4 '>
 							{faq.map((item, index) => (
 								<AccordionItem
 									key={index}
 									value={`item-${index}`}
 									className='border-none bg-white/5 px-4 py-2 rounded-2xl'>
-									<AccordionTrigger className='text-lg font-medium'>
+									<AccordionTrigger className='text-lg font-medium cursor-pointer'>
 										{item.question}
 									</AccordionTrigger>
-									<AccordionContent className='opacity-50 font-medium'>
+									<AccordionContent className='opacity-50 font-medium '>
 										{item.answer}
 									</AccordionContent>
 								</AccordionItem>

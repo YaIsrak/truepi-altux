@@ -8,22 +8,30 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useRef } from 'react';
 
-export default function FeatureCardDeck({ className }: { className?: string }) {
+export default function FeatureCardDeck({
+	className,
+	spread,
+}: {
+	className?: string;
+	spread?: number;
+}) {
 	const containerRef = useRef(null);
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
 		offset: ['center end', 'end start'],
 	});
 
+	const size = spread || 350;
+
 	const x1 = useTransform(
 		scrollYProgress,
 		[0, 0.3, 0.7, 1],
-		[0, -150, -150, -150],
+		[0, -size, -size, -size],
 	);
 	const x3 = useTransform(
 		scrollYProgress,
 		[0, 0.3, 0.7, 1],
-		[0, 150, 150, 150],
+		[0, size, size, size],
 	);
 	const zIndex1 = useTransform(
 		scrollYProgress,

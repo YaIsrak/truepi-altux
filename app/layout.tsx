@@ -29,7 +29,8 @@ export default function RootLayout({
 	return (
 		<html
 			lang='en'
-			className='scrollbar-thin h-4 scrollbar-thumb-primary scrollbar-track-gray-700 scroll-smooth'>
+			className='scrollbar-thin h-4 scrollbar-thumb-primary scrollbar-track-gray-700 scroll-smooth'
+			suppressHydrationWarning>
 			<body className={`${outfit.className} ${parisienne.variable}`}>
 				<SessionProvider>
 					<TrackVisitor />

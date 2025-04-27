@@ -10,7 +10,8 @@ export default function FeaturesSection() {
 				<UnderlineAnimation className='max-w-xl pb-4'>
 					<Word
 						className='text-6xl font-bold uppercase'
-						wordClassName='mr-5'>
+						wordClassName='mr-5'
+						isParisienne>
 						Whats in side
 					</Word>
 				</UnderlineAnimation>
@@ -90,10 +91,11 @@ export default function FeaturesSection() {
 				<div>
 					<FeatureCardDeck />
 				</div>
-				<div className='flex justify-end'>
+				<div className='flex justify-end relative z-40'>
 					<Word
 						className='text-6xl font-bold max-w-md text-right justify-end'
-						wordClassName='mr-5'>
+						wordClassName='mr-5'
+						isParisienne>
 						MAKE MONEY OR GET REFUNDED
 					</Word>
 				</div>

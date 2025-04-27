@@ -1,18 +1,13 @@
 import UnderlineAnimation from '@/components/ui/UnderlineAnimation';
 import Word from '@/components/ui/Word';
 import Image from 'next/image';
+import CTATitle from './_components/CTATitle';
 
 export default function AboutSec() {
 	return (
 		<section className='py-[15vmin]'>
-			<div className='container mx-auto px-4 text-center max-w-6xl'>
-				<Word
-					className='text-6xl font-bold text-center justify-center'
-					wordClassName='mr-5'>
-					TURN DIGITAL DOWNLOADS INTO DAILY DOLLARS — BY RESELLING PDF
-					COURSES JOURNALS TOOL KITS TEMPLATES + MORE START CONFIDENTLY
-					SCALE FAST WITH PROVEN STRATEGIES
-				</Word>
+			<div className='container mx-auto px-4 text-center max-w-8xl'>
+				<CTATitle />
 			</div>
 
 			<div className='container mx-auto px-4 mt-[15vmin] grid grid-cols-1 md:grid-cols-2'>

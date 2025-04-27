@@ -4,20 +4,23 @@ import { cn } from '@/lib/utils';
 import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
+interface Props {
+	children: string;
+	className?: string;
+	wordClassName?: string;
+	letterClassName?: string;
+	offset?: any[];
+	isParisienne?: boolean;
+}
+
 export default function Word({
 	children,
 	className,
 	wordClassName,
 	letterClassName,
 	offset = ['start 0.8', 'end center'],
-}: {
-	children: string;
-	className?: string;
-	wordClassName?: string;
-	letterClassName?: string;
-	offset?: any[];
-	isUnderline?: boolean;
-}) {
+	isParisienne = false,
+}: Props) {
 	const elementRef = useRef(null);
 	const { scrollYProgress } = useScroll({
 		target: elementRef,
@@ -25,6 +28,8 @@ export default function Word({
 	});
 
 	const words = (children as string).split(' ');
+
+	const globalCharIndexRef = useRef(0);
 
 	return (
 		<span
@@ -40,7 +45,9 @@ export default function Word({
 						range={[start, end]}
 						progress={scrollYProgress}
 						wordClassName={wordClassName}
-						letterClassName={letterClassName}>
+						letterClassName={letterClassName}
+						isParisienne={isParisienne}
+						globalCharIndexRef={globalCharIndexRef}>
 						{word}
 					</WordItem>
 				);
@@ -76,16 +83,23 @@ function WordItem({
 	progress,
 	wordClassName,
 	letterClassName,
+	isParisienne,
+	globalCharIndexRef,
 }: {
 	children: string;
 	range: number[];
 	progress: MotionValue<number>;
 	wordClassName?: string;
 	letterClassName?: string;
+	isParisienne?: boolean;
+	globalCharIndexRef: React.MutableRefObject<number>;
 }) {
 	const characters = children.split('');
 	const amount = range[1] - range[0];
 	const step = amount / children.length;
+
+	const firstCharIndex = globalCharIndexRef.current;
+	globalCharIndexRef.current += characters.length; // move global pointer
 
 	return (
 		<span className={cn('mr-[2px] relative', wordClassName)}>
@@ -93,12 +107,21 @@ function WordItem({
 				const start = range[0] + step * i;
 				const end = range[0] + step * (i + 1);
 
+				const charGlobalIndex = firstCharIndex + i;
+				const isFirstCharacter = charGlobalIndex === 0;
+
+				const finalClassName = cn(
+					letterClassName,
+					isParisienne && isFirstCharacter && 'font-parisienne font-light',
+				);
+
 				return (
 					<CharacterItem
 						key={i}
 						range={[start, end]}
 						progress={progress}
-						className={letterClassName}>
+						className={letterClassName}
+						addNewClass={isParisienne && isFirstCharacter}>
 						{character}
 					</CharacterItem>
 				);
@@ -112,16 +135,19 @@ function CharacterItem({
 	range,
 	progress,
 	className,
+	addNewClass,
 }: {
 	children: string;
 	range: number[];
 	progress: MotionValue<number>;
 	className?: string;
+	addNewClass?: boolean;
 }) {
 	const opacity = useTransform(progress, range, [0, 1]);
 
 	return (
-		<span className={cn('', className)}>
+		<span
+			className={cn(addNewClass && 'font-parisienne font-light', className)}>
 			<span className='absolute opacity-20'>{children}</span>
 			<motion.span style={{ opacity }}>{children}</motion.span>
 		</span>

@@ -25,7 +25,7 @@ export default function HeroSec() {
 			</div>
 			<CardDeck />
 			<Word
-				className='hidden md:flex absolute bottom-12 left-1/2 z-0 -translate-x-1/2 text-center max-w-xl justify-center'
+				className='hidden md:flex absolute bottom-0 left-1/2 z-0 -translate-x-1/2 text-center max-w-xl justify-center'
 				offset={['start 0.8', 'end 0.6']}>
 				LEARN TO BUILD A DIGITAL PRODUCT RESELLING EMPIRE FROM SCRATCH
 				STEP-BY-STEP GUIDE WITH REAL EXAMPLES, SCREENSHOTS, AND PROVEN

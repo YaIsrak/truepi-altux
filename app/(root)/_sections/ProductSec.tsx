@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import ProductTabs from './_components/ProductTabs';
+import { Testimonials } from './_components/Testimonials';
 
 export default function ProductSection() {
 	return (
@@ -28,8 +29,7 @@ export default function ProductSection() {
 
 			<div className='pt-[15vmin]'>
 				<Suspense>
-					{/* fix:  */}
-					{/* <Testimonials /> */}
+					<Testimonials />
 				</Suspense>
 			</div>
 		</section>
