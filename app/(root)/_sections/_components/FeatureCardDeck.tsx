@@ -74,7 +74,7 @@ export default function FeatureCardDeck({ className }: { className?: string }) {
 							x: card.x,
 							zIndex: card.zIndex,
 						}}>
-						<div className='relative w-96'>
+						<div className='relative w-52 md:w-96'>
 							<Image
 								src={card.image}
 								alt={card.title}

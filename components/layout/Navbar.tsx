@@ -1,3 +1,4 @@
+import MobileNav from '@/app/(root)/_sections/_components/MobileNav';
 import TextRotateAnimation from '@/components/ui/TextRotateAnimation';
 import Link from 'next/link';
 import UserButton from './UserButton';
@@ -47,8 +48,13 @@ export default function Navbar() {
 						))}
 					</div>
 
-					{/* auth */}
-					<UserButton />
+					<div className='flex items-center gap-2'>
+						{/* auth */}
+						<UserButton />
+						<div className='block md:hidden'>
+							<MobileNav navitems={navItems} />
+						</div>
+					</div>
 				</div>
 			</div>
 		</nav>

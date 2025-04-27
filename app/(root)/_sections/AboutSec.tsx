@@ -1,3 +1,4 @@
+import UnderlineAnimation from '@/components/ui/UnderlineAnimation';
 import Word from '@/components/ui/Word';
 import Image from 'next/image';
 
@@ -38,23 +39,23 @@ export default function AboutSec() {
 			</div>
 
 			<div className='container mx-auto px-4 max-w-4xl mt-[15vmin] grid grid-cols-2 md:grid-cols-4 gap-8'>
-				<div className='col-span-2 border-b pb-4'>
+				<UnderlineAnimation className='col-span-2 pb-4'>
 					<p className='text-3xl font-regular'>
 						<span className='font-parisienne font-bold'>Y</span>OU ARE
 						NEVER LEFT ALONE WITH JUST THE EBOOK. IT IS IS ONLY THE
 						BEGINNING
 					</p>
-				</div>
-				<div className='border-b pb-4'>
+				</UnderlineAnimation>
+				<UnderlineAnimation className=' pb-4'>
 					<p className='text-2xl font-light'>
 						Unimaginable Lockstep Mentorship
 					</p>
-				</div>
-				<div className='border-b pb-4'>
+				</UnderlineAnimation>
+				<UnderlineAnimation className='pb-4'>
 					<p className='text-2xl font-light'>
 						A Whole Community to Back YOU Up
 					</p>
-				</div>
+				</UnderlineAnimation>
 			</div>
 		</section>
 	);

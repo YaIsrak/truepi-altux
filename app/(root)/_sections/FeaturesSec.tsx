@@ -1,3 +1,4 @@
+import UnderlineAnimation from '@/components/ui/UnderlineAnimation';
 import Word from '@/components/ui/Word';
 import Image from 'next/image';
 import FeatureCardDeck from './_components/FeatureCardDeck';
@@ -6,16 +7,17 @@ export default function FeaturesSection() {
 	return (
 		<section className='py-[15vmin]'>
 			<div className='container mx-auto px-4 lg:px-0 relative'>
-				<Word
-					className='text-6xl font-bold uppercase'
-					wordClassName='mr-5'
-					isUnderline>
-					Whats in side
-				</Word>
+				<UnderlineAnimation className='max-w-xl pb-4'>
+					<Word
+						className='text-6xl font-bold uppercase'
+						wordClassName='mr-5'>
+						Whats in side
+					</Word>
+				</UnderlineAnimation>
 
 				{/* content */}
-				<div className='grid grid-cols-3 md:grid-cols-5 mt-16'>
-					<div className='relative'>
+				<div className='grid grid-cols-4 md:grid-cols-5 mt-16'>
+					<div className='relative col-span-4 md:col-span-1'>
 						<Image
 							src='/card5.png'
 							alt='card'
@@ -77,7 +79,7 @@ export default function FeaturesSection() {
 
 			<div className='my-[15vmin]'></div>
 
-			<div className='container mx-auto px-4 lg:px-0 space-y-32'>
+			<div className='container mx-auto px-4 lg:px-0 space-y-48 md:space-y-64'>
 				<div className='flex justify-start'>
 					<Word
 						className='text-6xl font-bold max-w-md'

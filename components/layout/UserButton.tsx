@@ -12,7 +12,13 @@ import {
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 
-export default function UserButton({ mobile }: { mobile?: boolean }) {
+export default function UserButton({
+	mobile,
+	className,
+}: {
+	mobile?: boolean;
+	className?: string;
+}) {
 	const { data: session } = useSession();
 
 	if (!session?.user)
@@ -20,6 +26,7 @@ export default function UserButton({ mobile }: { mobile?: boolean }) {
 			<Button
 				className={cn(
 					'rounded-full',
+					className,
 					mobile && 'bg-white text-primary hover:bg-gray-200',
 				)}
 				asChild>
@@ -34,6 +41,7 @@ export default function UserButton({ mobile }: { mobile?: boolean }) {
 					size={mobile ? 'default' : 'icon'}
 					className={cn(
 						'rounded-full',
+						className,
 						mobile && 'bg-white text-primary hover:bg-gray-200',
 					)}>
 					<UserIcon className='size-4' />

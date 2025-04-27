@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TextRotateAnimation from '@/components/ui/TextRotateAnimation';
 import { ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
+import { TabButton } from './TabButton';
 
 const plans = [
 	{
@@ -70,14 +71,16 @@ export default function ProductTabs() {
 			<TabsList className='grid w-full grid-cols-2 bg-transparent mb-12 max-w-md justify-center mx-auto'>
 				{/* data-[state=active]:shadow-sm */}
 				<TabsTrigger
-					className='text-white text-2xl data-[state=active]:text-black transition-all'
-					value='choose'>
-					Choose
+					className='text-white text-2xl data-[state=active]:text-black transition-all group/icon '
+					value='choose'
+					asChild>
+					<TabButton>Choose</TabButton>
 				</TabsTrigger>
 				<TabsTrigger
-					className='text-white text-2xl data-[state=active]:text-black transition-all'
-					value='compare'>
-					Compare
+					className='text-white text-2xl data-[state=active]:text-black transition-all py-5 px-2'
+					value='compare'
+					asChild>
+					<TabButton>Compare</TabButton>
 				</TabsTrigger>
 			</TabsList>
 			<TabsContent value='choose'>

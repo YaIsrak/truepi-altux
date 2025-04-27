@@ -5,9 +5,9 @@ export default function HeroSec() {
 	return (
 		<section className='min-h-screen flex flex-col items-center justify-center relative overflow-hidden'>
 			<div className='absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center mix-blend-exclusion w-full'>
-				<div className='flex items-center justify-center gap-48'>
+				<div className='flex flex-col md:flex-row items-center justify-center gap-48 text-center'>
 					<div>
-						<div className='text-8xl font-bold'>
+						<div className='text-7xl md:text-8xl font-bold'>
 							HUSTLE IN <br />{' '}
 							<span className='font-parisienne font-light'>W</span>
 							ITHDRAW
@@ -15,7 +15,7 @@ export default function HeroSec() {
 					</div>
 
 					<div>
-						<div className='text-8xl font-bold text-start'>
+						<div className='text-7xl md:text-8xl font-bold text-center md:text-start'>
 							SILENCE IN
 							<br />
 							PEACE
@@ -25,7 +25,7 @@ export default function HeroSec() {
 			</div>
 			<CardDeck />
 			<Word
-				className='absolute bottom-12 left-1/2 z-0 -translate-x-1/2 text-center max-w-xl justify-center'
+				className='hidden md:flex absolute bottom-12 left-1/2 z-0 -translate-x-1/2 text-center max-w-xl justify-center'
 				offset={['start 0.8', 'end 0.6']}>
 				LEARN TO BUILD A DIGITAL PRODUCT RESELLING EMPIRE FROM SCRATCH
 				STEP-BY-STEP GUIDE WITH REAL EXAMPLES, SCREENSHOTS, AND PROVEN

@@ -20,12 +20,12 @@ export default function CardDeck({ className }: { className?: string }) {
 	const rotate1 = useTransform(
 		scrollYProgress,
 		[0, 0.4, 0.6, 1],
-		[0, 0, -75, -75],
+		[-5, -5, -75, -75],
 	);
 	const rotate2 = useTransform(
 		scrollYProgress,
 		[0, 0.4, 0.6, 1],
-		[0, 0, -45, -45],
+		[-2.5, -2.5, -45, -45],
 	);
 	const rotate3 = useTransform(
 		scrollYProgress,
@@ -35,12 +35,12 @@ export default function CardDeck({ className }: { className?: string }) {
 	const rotate4 = useTransform(
 		scrollYProgress,
 		[0, 0.4, 0.6, 1],
-		[0, 0, 45, 45],
+		[2.5, 2.5, 45, 45],
 	);
 	const rotate5 = useTransform(
 		scrollYProgress,
 		[0, 0.4, 0.6, 1],
-		[0, 0, 75, 75],
+		[5, 5, 75, 75],
 	);
 
 	const x1 = useTransform(
@@ -103,10 +103,12 @@ export default function CardDeck({ className }: { className?: string }) {
 				{cards.map((card, index) => (
 					<motion.div
 						key={index}
-						className={`aspect-[6/8] w-80 ${card.color} rounded-3xl absolute`}
+						className={`aspect-[6/8] w-64 md:w-80 ${card.color} rounded-3xl absolute`}
 						style={{
 							x: card.x,
 							rotate: card.rotate,
+							originY: 1, // <--- NEW
+							originX: 0.5, // <--- NEW
 						}}>
 						<div className='flex items-center justify-center h-full text-white text-xl font-bold'>
 							<Image
