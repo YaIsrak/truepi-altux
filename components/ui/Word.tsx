@@ -110,11 +110,6 @@ function WordItem({
 				const charGlobalIndex = firstCharIndex + i;
 				const isFirstCharacter = charGlobalIndex === 0;
 
-				const finalClassName = cn(
-					letterClassName,
-					isParisienne && isFirstCharacter && 'font-parisienne font-light',
-				);
-
 				return (
 					<CharacterItem
 						key={i}
