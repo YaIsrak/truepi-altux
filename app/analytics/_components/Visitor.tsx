@@ -1,6 +1,12 @@
 'use client';
 
-import { Card } from '@/components/ui/card';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
 import {
 	Select,
 	SelectContent,
@@ -40,36 +46,44 @@ export default function Visitor() {
 	}, [selectedDuration]);
 
 	return (
-		<div className='space-y-4'>
-			<Select
-				defaultValue={selectedDuration}
-				onValueChange={setSelectedDuration}>
-				<SelectTrigger className='w-[180px] border-primary '>
-					<SelectValue
-						placeholder='Select duration'
-						className='text-black'
-					/>
-				</SelectTrigger>
-				<SelectContent>
-					<SelectItem value='1d'>Last 1 day</SelectItem>
-					<SelectItem value='1w'>Last 1 week</SelectItem>
-					<SelectItem value='1m'>Last 1 month</SelectItem>
-				</SelectContent>
-			</Select>
-			{loading && <div className='text-center'> Loading...</div>}
+		<Card>
+			<CardHeader>
+				<CardTitle>Visitor</CardTitle>
+				<CardDescription>
+					Visitor of last {selectedDuration}
+				</CardDescription>
+			</CardHeader>
+			<CardContent className='space-y-4 px-4'>
+				<Select
+					defaultValue={selectedDuration}
+					onValueChange={setSelectedDuration}>
+					<SelectTrigger className='w-[180px] border-primary '>
+						<SelectValue
+							placeholder='Select duration'
+							className='text-black'
+						/>
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value='1d'>Last 1 day</SelectItem>
+						<SelectItem value='1w'>Last 1 week</SelectItem>
+						<SelectItem value='1m'>Last 1 month</SelectItem>
+					</SelectContent>
+				</Select>
 
-			{/* chart */}
-			<VisitorChart data={data} />
+				{loading && <div className='text-center'> Loading...</div>}
 
-			{/* list */}
-			{data && data.length === 0 ? (
-				<div className='flex items-center justify-center h-96'>
-					<p className='text-gray-500'>No visitors found</p>
-				</div>
-			) : (
-				<VisitorList data={data} />
-			)}
-		</div>
+				<VisitorChart data={data} />
+
+				{/* list */}
+				{data && data.length === 0 ? (
+					<div className='flex items-center justify-center h-96'>
+						<p className='text-gray-500'>No visitors found</p>
+					</div>
+				) : (
+					<VisitorList data={data} />
+				)}
+			</CardContent>
+		</Card>
 	);
 }
 
@@ -116,8 +130,6 @@ function VisitorChart({ data }: { data: any[] }) {
 					<Line
 						type='monotone'
 						dataKey='count'
-						stroke='#6366f1'
-						strokeWidth={2}
 					/>
 				</LineChart>
 			</ResponsiveContainer>
