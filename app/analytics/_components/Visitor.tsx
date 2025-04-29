@@ -7,16 +7,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select';
 import { groupVisitorsByDate } from '@/lib/utils';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import {
 	CartesianGrid,
 	Line,
@@ -27,60 +18,27 @@ import {
 	YAxis,
 } from 'recharts';
 
-export default function Visitor() {
-	const [data, setData] = useState([]);
-	const [selectedDuration, setSelectedDuration] = useState('1m');
-	const [loading, setLoading] = useState(false);
-
-	useEffect(() => {
-		setLoading(true);
-		const fetchData = async () => {
-			const { data } = await axios.get(
-				`/api/visitor?duration=${selectedDuration}`,
-			);
-			setData(data);
-			setLoading(false);
-		};
-
-		fetchData();
-	}, [selectedDuration]);
-
+export default function Visitor({
+	duration,
+	visitors,
+}: {
+	duration: string;
+	visitors: any[];
+}) {
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle>Visitor</CardTitle>
-				<CardDescription>
-					Visitor of last {selectedDuration}
-				</CardDescription>
+				<CardDescription>Visitor of last {duration}</CardDescription>
 			</CardHeader>
 			<CardContent className='space-y-4 px-4'>
-				<Select
-					defaultValue={selectedDuration}
-					onValueChange={setSelectedDuration}>
-					<SelectTrigger className='w-[180px] border-primary '>
-						<SelectValue
-							placeholder='Select duration'
-							className='text-black'
-						/>
-					</SelectTrigger>
-					<SelectContent>
-						<SelectItem value='1d'>Last 1 day</SelectItem>
-						<SelectItem value='1w'>Last 1 week</SelectItem>
-						<SelectItem value='1m'>Last 1 month</SelectItem>
-					</SelectContent>
-				</Select>
-
-				{loading && <div className='text-center'> Loading...</div>}
-
-				<VisitorChart data={data} />
-
-				{/* list */}
-				{data && data.length === 0 ? (
+				<VisitorChart data={visitors} />
+				{visitors && visitors.length === 0 ? (
 					<div className='flex items-center justify-center h-96'>
 						<p className='text-gray-500'>No visitors found</p>
 					</div>
 				) : (
-					<VisitorList data={data} />
+					<VisitorList data={visitors} />
 				)}
 			</CardContent>
 		</Card>

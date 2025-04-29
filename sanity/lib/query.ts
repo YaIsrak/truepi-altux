@@ -26,9 +26,34 @@ export const USER_SALES_QUERY = defineQuery(
 	}`,
 );
 
-export const SALES_QUERY = defineQuery(
-	`*[_type == "sale"]{
-		...,
-		product->
-	}`,
-);
+export const SALES_QUERY = (duration: string) => {
+	const now = new Date();
+	const from =
+		new Date(now.getTime() - parseDuration(duration))
+			.toISOString()
+			.split('.')[0] + 'Z';
+
+	console.log('Generated "from" date:', from);
+	return `
+    *[
+      _type == "sale" &&
+      dateTime(_createdAt) >= dateTime("${from}")
+    ]{
+      ...,
+      product->
+    }
+  `;
+};
+function parseDuration(duration: string): number {
+	const num = parseInt(duration);
+	if (isNaN(num)) return 0;
+
+	if (duration.endsWith('d')) return num * 24 * 60 * 60 * 1000; // Days in milliseconds
+	if (duration.endsWith('h')) return num * 60 * 60 * 1000; // Hours in milliseconds
+	if (duration.endsWith('w')) return num * 7 * 24 * 60 * 60 * 1000; // Weeks in milliseconds
+	if (duration.endsWith('m')) {
+		// Assuming 'm' means months (approximately 30 days)
+		return num * 30 * 24 * 60 * 60 * 1000;
+	}
+	return 0;
+}
