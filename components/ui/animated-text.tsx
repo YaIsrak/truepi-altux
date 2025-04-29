@@ -1,40 +1,112 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { gsap } from 'gsap';
+import { useEffect, useRef } from 'react';
 
-export const AnimatedText = ({ text }: { text: string }) => {
-	const [visibleChars, setVisibleChars] = useState(0);
+interface AnimatedTextProps {
+	lines: string[];
+	className?: string;
+	direction?: 'left' | 'right';
+}
+
+export default function AnimatedText({
+	lines,
+	className,
+	direction = 'left',
+}: AnimatedTextProps) {
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const total = text.length;
-		let current = 0;
+		const ctx = gsap.context(() => {
+			const isMobile = window.innerWidth < 768;
+			const linesEls = gsap.utils.toArray<HTMLDivElement>('.animated-line');
 
-		const interval = setInterval(() => {
-			setVisibleChars((prev) => {
-				if (prev >= total) {
-					current++;
-					if (current >= 30) return 0; // pause before reset
-					return prev;
-				}
-				return prev + 1;
-			});
-		}, 60); // speed
+			const tl = gsap.timeline();
 
-		return () => clearInterval(interval);
-	}, [text]);
+			if (isMobile) {
+				// Step 1: Slide in from opposite sides
+				linesEls.forEach((el, index) => {
+					gsap.set(el, {
+						x: index % 2 === 0 ? -100 : -100, // alternate: right, left
+						opacity: 0,
+					});
+				});
+
+				tl.to(linesEls, {
+					x: 0,
+					opacity: 1,
+					duration: 1,
+					ease: 'power3.out',
+					stagger: 0.2,
+				});
+
+				// Step 2: Fill gradient
+				tl.to(
+					linesEls,
+					{
+						backgroundPositionX: '0%',
+						duration: 1.5,
+						stagger: 0.2,
+						ease: 'power2.out',
+					},
+					'-=0.8',
+				);
+			} else {
+				// Desktop animation (same as before)
+				tl.from(linesEls, {
+					y: 50,
+					opacity: 0,
+					duration: 1,
+					stagger: 0.2,
+					ease: 'power3.out',
+				});
+
+				tl.to(
+					linesEls,
+					{
+						backgroundPositionX: '0%',
+						duration: 2,
+						stagger: 0.2,
+						ease: 'power2.out',
+					},
+					'-=1',
+				);
+
+				tl.to(
+					linesEls,
+					{
+						x: direction === 'left' ? -140 : 80,
+						duration: 1.2,
+						stagger: 0.2,
+						ease: 'power2.out',
+					},
+					'-=1',
+				);
+			}
+		}, containerRef);
+
+		return () => ctx.revert();
+	}, [direction]);
 
 	return (
-		<span className='whitespace-nowrap'>
-			{text.split('').map((char, i) => (
-				<motion.span
-					key={i}
-					className='inline-block leading-none align-baseline'
-					initial={{ opacity: 0 }}
-					animate={{ opacity: i < visibleChars ? 1 : 0 }}>
-					{char === ' ' ? '\u00A0' : char}
-				</motion.span>
+		<div
+			ref={containerRef}
+			className={`flex flex-col items-center ${className}`}>
+			{lines.map((line, index) => (
+				<div
+					key={index}
+					className='animated-line text-transparent bg-clip-text'
+					style={{
+						backgroundImage:
+							'linear-gradient(90deg, white 50%, #888888 50%)',
+						backgroundSize: '200% 100%',
+						backgroundPositionX: '100%',
+						WebkitBackgroundClip: 'text',
+						color: 'transparent',
+					}}>
+					{line}
+				</div>
 			))}
-		</span>
+		</div>
 	);
-};
+}

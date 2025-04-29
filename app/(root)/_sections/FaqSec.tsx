@@ -45,28 +45,33 @@ const faq = [
 export default function FaqSec() {
 	return (
 		<section className='py-[15vmin]'>
-			<div className='container mx-auto px-4'>
-				<div className='grid grid-cols-1 md:grid-cols-5 gap-4'>
-					<div>
-						<Word className='text-6xl font-medium'>
-							Frequently Asked Questions
+			<div className='container max-w-8xl mx-auto px-4'>
+				<div className='grid grid-cols-1 lg:grid-cols-4 gap-10 md:gap-6'>
+					{/* Heading */}
+					<div className='text-center md:text-left space-y-2'>
+						<Word className='text-3xl md:text-4xl xl:text-5xl  font-medium uppercase'>
+							your questions,
+						</Word>
+						<Word className='text-3xl md:text-4xl xl:text-5xl  font-medium uppercase'>
+							answered
 						</Word>
 					</div>
 
-					<div className='col-span-4 pl-6'>
+					{/* FAQ Accordion */}
+					<div className='md:col-span-3'>
 						<Accordion
 							type='single'
 							collapsible
-							className='w-full space-y-4 '>
+							className='w-full space-y-4'>
 							{faq.map((item, index) => (
 								<AccordionItem
 									key={index}
 									value={`item-${index}`}
-									className='border-none bg-white/5 px-4 py-2 rounded-2xl'>
-									<AccordionTrigger className='text-lg font-medium cursor-pointer'>
+									className='border-none bg-white/5 px-4 py-3 rounded-2xl'>
+									<AccordionTrigger className='text-base sm:text-lg font-medium cursor-pointer text-left'>
 										{item.question}
 									</AccordionTrigger>
-									<AccordionContent className='opacity-50 font-medium '>
+									<AccordionContent className='opacity-60 font-medium text-sm sm:text-base leading-relaxed'>
 										{item.answer}
 									</AccordionContent>
 								</AccordionItem>
