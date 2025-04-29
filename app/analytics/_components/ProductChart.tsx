@@ -23,7 +23,13 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export default function ProductChart({ sales }: { sales: SALES_QUERYResult }) {
+export default function ProductChart({
+	sales,
+	duration,
+}: {
+	sales: SALES_QUERYResult;
+	duration: string;
+}) {
 	const chartData = sales.map((sale) => ({
 		date: new Date(sale._createdAt).toLocaleDateString('en-US', {
 			month: 'short',
@@ -36,7 +42,7 @@ export default function ProductChart({ sales }: { sales: SALES_QUERYResult }) {
 		<Card>
 			<CardHeader>
 				<CardTitle>Sales</CardTitle>
-				<CardDescription>Sales over the last 6 months</CardDescription>
+				<CardDescription>Sales over the last {duration}</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<ChartContainer config={chartConfig}>

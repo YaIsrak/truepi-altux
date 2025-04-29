@@ -33,7 +33,6 @@ export const SALES_QUERY = (duration: string) => {
 			.toISOString()
 			.split('.')[0] + 'Z';
 
-	console.log('Generated "from" date:', from);
 	return `
     *[
       _type == "sale" &&

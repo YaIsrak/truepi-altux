@@ -14,7 +14,7 @@ import ProductList from './_components/ProductList';
 import Visitor from './_components/Visitor';
 
 export default function AnalyticsPageWrapper() {
-	const [selectedDuration, setSelectedDuration] = useState('1m');
+	const [selectedDuration, setSelectedDuration] = useState('1w');
 
 	return (
 		<section className='py-[5vmin]'>
@@ -73,7 +73,10 @@ function AnalyticsPage({ selectedDuration }: { selectedDuration: string }) {
 				/>
 			</Suspense>
 			<Suspense fallback={<div>Loading...</div>}>
-				<ProductSales sales={sales} />
+				<ProductSales
+					duration={selectedDuration}
+					sales={sales}
+				/>
 			</Suspense>
 			<Suspense fallback={<div>Loading...</div>}>
 				<Visitor
@@ -85,16 +88,19 @@ function AnalyticsPage({ selectedDuration }: { selectedDuration: string }) {
 	);
 }
 
-function ProductSales({ sales }: { sales: any[] }) {
+function ProductSales({ sales, duration }: { sales: any[]; duration: string }) {
 	return (
 		<div className='space-y-4'>
-			<ProductChart sales={sales} />
+			<ProductChart
+				sales={sales}
+				duration={duration}
+			/>
 			<ProductList sales={sales} />
 		</div>
 	);
 }
 
-export function ConversionRate({
+function ConversionRate({
 	sales,
 	visitors,
 }: {
