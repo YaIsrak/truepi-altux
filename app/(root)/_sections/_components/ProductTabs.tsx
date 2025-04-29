@@ -1,5 +1,6 @@
 import ProductDialogContent from '@/components/ProductDialogContent';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/moving-border';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TextRotateAnimation from '@/components/ui/TextRotateAnimation';
 import { ShoppingBag } from 'lucide-react';
@@ -95,8 +96,8 @@ export default function ProductTabs() {
 
 function ProductTab() {
 	return (
-		<div>
-			<div className='grid grid-cols-1 md:grid-cols-3 text-start'>
+		<div className='max-w-7xl'>
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-start gap-12'>
 				{plans.map((plan, i) => (
 					<div key={i}>
 						{/* header */}
@@ -107,15 +108,18 @@ function ProductTab() {
 								{plan.name}
 							</h3>
 						</div>
-						<div className='relative p-2 mb-4'>
+						<Button
+							borderRadius='0.80rem'
+							className=''>
 							<Image
 								src={plan.image}
 								alt={plan.name}
-								width={500}
-								height={500}
-								className='w-full h-auto rounded-2xl'
+								width={600}
+								height={600}
+								className='w-full h-auto rounded-2xl object-cover'
 							/>
-						</div>
+						</Button>
+						<div></div>
 						{/* footer */}
 						<div className='flex justify-between px-4'>
 							{/* button */}

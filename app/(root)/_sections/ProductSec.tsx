@@ -1,3 +1,4 @@
+import AnimatedBigWord from '@/components/ui/animate-big-word';
 import { Suspense } from 'react';
 import ProductTabs from './_components/ProductTabs';
 import { Testimonials } from './_components/Testimonials';
@@ -8,13 +9,13 @@ export default function ProductSection() {
 			className='py-[15vmin]'
 			id='products'>
 			<div
-				className='container mx-auto flex flex-col items-center justify-center text-center max-w-4xl space-y-16'
+				className='container max-w-8xl mx-auto flex flex-col items-center justify-center text-center max-w-5xl space-y-16'
 				id='compare'>
 				{/* header */}
 				<div>
-					<h2 className='text-6xl font-bold mb-8 uppercase'>
-						Take The First <span className='text-8xl'>BIG</span> Step
-						Change The Course of Your Life Forever
+					<h2 className='text-4xl lg:text-6xl font-bold mb-8 uppercase tracking-wider'>
+						Take The First <AnimatedBigWord /> Step Change The Course of
+						Your Life Forever
 					</h2>
 
 					<div className='flex items-center justify-center text-xl divide-x-2 opacity-50'>
@@ -24,7 +25,9 @@ export default function ProductSection() {
 					</div>
 				</div>
 
-				<ProductTabs />
+				<div>
+					<ProductTabs />
+				</div>
 			</div>
 
 			<div className='pt-[15vmin]'>

@@ -1,8 +1,8 @@
 'use client';
 
-import Card3 from '@/public/card0.png';
-import Card2 from '@/public/card10.png';
-import Card1 from '@/public/card8.png';
+import Card3 from '@/public/card2.png';
+import Card2 from '@/public/card3.png';
+import Card1 from '@/public/card4.png';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
@@ -10,86 +10,78 @@ import { useRef } from 'react';
 
 export default function FeatureCardDeck({
 	className,
-	spread,
+	spread = 20, // vertical fall amount
 }: {
 	className?: string;
 	spread?: number;
 }) {
 	const containerRef = useRef(null);
+
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
 		offset: ['center end', 'end start'],
 	});
 
-	const size = spread || 350;
+	// Cards rotate left like they're falling
+	const rotate1 = useTransform(scrollYProgress, [0, 1], [10, -45]);
+	const rotate2 = useTransform(scrollYProgress, [0, 1], [15, -60]);
+	const rotate3 = useTransform(scrollYProgress, [0, 1], [20, -75]);
 
-	const x1 = useTransform(
-		scrollYProgress,
-		[0, 0.3, 0.7, 1],
-		[0, -size, -size, -size],
-	);
-	const x3 = useTransform(
-		scrollYProgress,
-		[0, 0.3, 0.7, 1],
-		[0, size, size, size],
-	);
-	const zIndex1 = useTransform(
-		scrollYProgress,
-		[0, 0.3, 0.7, 1],
-		[1, 2, 2, 2],
-	);
-	const zIndex2 = useTransform(
-		scrollYProgress,
-		[0, 0.3, 0.7, 1],
-		[3, 3, 3, 3],
-	);
-	const zIndex3 = useTransform(
-		scrollYProgress,
-		[0, 0.3, 0.7, 1],
-		[2, 1, 1, 1],
-	);
+	// No x movement (stay aligned)
+	const x = useTransform(scrollYProgress, [0, 1], [0, 0]);
+
+	// Fall slightly downward
+	const y1 = useTransform(scrollYProgress, [0, 1], [-10, spread * 1]);
+	const y2 = useTransform(scrollYProgress, [0, 1], [-20, spread * 2]);
+	const y3 = useTransform(scrollYProgress, [0, 1], [-30, spread * 3]);
 
 	const cards = [
 		{
 			title: 'Unique',
 			image: Card1,
-			x: x1,
-			zIndex: zIndex1,
+			x,
+			y: y1,
+			rotate: rotate1,
 		},
 		{
 			title: 'Working',
 			image: Card2,
-			zIndex: zIndex2,
+			x,
+			y: y2,
+			rotate: rotate2,
 		},
 		{
 			title: 'Transparent',
 			image: Card3,
-			x: x3,
-			zIndex: zIndex3,
+			x,
+			y: y3,
+			rotate: rotate3,
 		},
 	];
 
 	return (
 		<div
 			ref={containerRef}
-			className={`${className}`}>
-			<div className='relative w-full flex items-center justify-center'>
+			className={className}>
+			<div className='relative w-full flex items-center justify-center min-h-[600px]'>
 				{cards.map((card, index) => (
 					<motion.div
 						key={index}
-						className={`absolute`}
+						className='absolute'
 						style={{
 							x: card.x,
-							zIndex: card.zIndex,
-						}}>
-						<div className='relative w-52 md:w-96'>
+							y: card.y,
+							rotate: card.rotate,
+							zIndex: cards.length - index,
+						}}
+						transition={{ type: 'spring', stiffness: 80, damping: 18 }}>
+						<div className='relative w-52 md:w-64 xl:w-96 shadow-xl rounded-3xl overflow-hidden'>
 							<Image
 								src={card.image}
 								alt={card.title}
-								width={500}
+								width={400}
 								height={500}
 								className='rounded-3xl'
-								placeholder='blur'
 							/>
 						</div>
 					</motion.div>

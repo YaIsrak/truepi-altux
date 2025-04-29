@@ -15,7 +15,8 @@ html {
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--font-parisienne: var(--font-parisienne);
+	--font-euphoria: var(--font-euphoria_script);
+	--font-hindMadurai: var(--font-hind_madurai);
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -84,7 +85,8 @@ html {
 	--sidebar-accent-foreground: oklch(0.216 0.006 56.043);
 	--sidebar-border: oklch(0.923 0.003 48.717);
 	--sidebar-ring: oklch(0.709 0.01 56.259);
-
+	--font-dancing_script: 'Dancing Script', cursive;
+	--font-outfit: 'Outfit', sans-serif;
 	--color-sigma: #6366f1;
 	--color-respect: #10b981;
 	--color-aura: #f59e0b;
