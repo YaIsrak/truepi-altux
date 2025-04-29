@@ -10,7 +10,7 @@ interface Props {
 	wordClassName?: string;
 	letterClassName?: string;
 	offset?: any[];
-	isParisienne?: boolean;
+	isEuphoria?: boolean;
 }
 
 export default function Word({
@@ -19,7 +19,7 @@ export default function Word({
 	wordClassName,
 	letterClassName,
 	offset = ['start 0.8', 'end center'],
-	isParisienne = false,
+	isEuphoria = false,
 }: Props) {
 	const elementRef = useRef(null);
 	const { scrollYProgress } = useScroll({
@@ -46,7 +46,7 @@ export default function Word({
 						progress={scrollYProgress}
 						wordClassName={wordClassName}
 						letterClassName={letterClassName}
-						isParisienne={isParisienne}
+						isEuphoria={isEuphoria}
 						globalCharIndexRef={globalCharIndexRef}>
 						{word}
 					</WordItem>
@@ -83,7 +83,7 @@ function WordItem({
 	progress,
 	wordClassName,
 	letterClassName,
-	isParisienne,
+	isEuphoria,
 	globalCharIndexRef,
 }: {
 	children: string;
@@ -91,7 +91,7 @@ function WordItem({
 	progress: MotionValue<number>;
 	wordClassName?: string;
 	letterClassName?: string;
-	isParisienne?: boolean;
+	isEuphoria?: boolean;
 	globalCharIndexRef: React.MutableRefObject<number>;
 }) {
 	const characters = children.split('');
@@ -110,13 +110,18 @@ function WordItem({
 				const charGlobalIndex = firstCharIndex + i;
 				const isFirstCharacter = charGlobalIndex === 0;
 
+				const finalClassName = cn(
+					letterClassName,
+					isEuphoria && isFirstCharacter && 'font-euphoria font-light',
+				);
+
 				return (
 					<CharacterItem
 						key={i}
 						range={[start, end]}
 						progress={progress}
 						className={letterClassName}
-						addNewClass={isParisienne && isFirstCharacter}>
+						addNewClass={isEuphoria && isFirstCharacter}>
 						{character}
 					</CharacterItem>
 				);
@@ -142,7 +147,7 @@ function CharacterItem({
 
 	return (
 		<span
-			className={cn(addNewClass && 'font-parisienne font-light', className)}>
+			className={cn(addNewClass && 'font-euphoria font-light', className)}>
 			<span className='absolute opacity-20'>{children}</span>
 			<motion.span style={{ opacity }}>{children}</motion.span>
 		</span>
