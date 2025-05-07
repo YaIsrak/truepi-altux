@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className=" text-white">
+    <footer className=" text-white ">
       {/* Top section */}
       <div className="flex flex-col items-center justify-center max-w-full mx-auto py-16 text-center ">
         <h3 className="font-bold text-2xl sm:text-4xl md:text-5xl">
@@ -13,8 +13,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom section */}
-      <div className="bg-[#121212] p-6">
-        <div className="max-w-9xl mx-auto">
+      <div className="bg-[#121212] p-6 ">
+        <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mt-16  text-sm sm:text-base gap-4 text-center  pb-4 mx-auto  ">
             <a href="">Terms of refund </a>
             <a href="">Terms and conditions</a>

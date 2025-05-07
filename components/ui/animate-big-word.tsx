@@ -17,7 +17,7 @@ export default function AnimatedBigWord() {
     <span ref={ref}>
       <motion.span
         style={{ display: "inline-block", scale }}
-        className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl inline-block origin-center leading-tight"
+        className="text-4xl md:text-5xl inline-block origin-center leading-tight"
       >
         BIG
       </motion.span>
