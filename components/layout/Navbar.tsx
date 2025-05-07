@@ -4,7 +4,7 @@ import { useState } from "react";
 import TextRotateAnimation from "@/components/ui/TextRotateAnimation";
 import Link from "next/link";
 import { Menu, X } from "lucide-react"; // Icon for mobile toggle
-import { FaArrowRight } from "react-icons/fa";
+
 import UserButton from "./UserButton";
 
 const navItems = [
